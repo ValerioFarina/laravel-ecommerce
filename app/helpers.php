@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Str;
 use App\Category;
+use App\Product;
 
 function slugExists($slug, $model) {
     switch ($model) {
         case 'Category':
             $result = Category::where('slug', $slug)->first();
+            break;
+        case 'Product':
+            $result = Product::where('slug', $slug)->first();
             break;
     }
     return $result;
