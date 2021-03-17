@@ -22,3 +22,8 @@ Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->
     Route::resource('products', 'ProductController');
 });
 
+Route::prefix('products')->name('guest.products.')->group(function() {
+    Route::get('/', 'ProductController@index')->name('index');
+    Route::get('/{product}', 'ProductController@show')->name('show');
+});
+
