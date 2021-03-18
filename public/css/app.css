@@ -10942,3 +10942,43 @@ a.text-dark:focus {
   }
 }
 
+[v-cloak] {
+  display: none;
+}
+
+.cart-counter {
+  padding: 0 5px;
+  border-radius: 50%;
+  background-color: #ff9900;
+}
+
+#guest-products-index img {
+  height: 240px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+#cart img {
+  height: 100px;
+  width: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+@media screen and (min-width: 480px) {
+  #cart img {
+    height: 120px;
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #cart img {
+    height: 170px;
+  }
+}
+
+#cart input[name=quantity] {
+  width: 50px;
+}
+

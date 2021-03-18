@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div id="guest-products-index" class="container">
         <div class="row">
             <div class="col-12">
                 <div class="product-container d-flex flex-wrap">

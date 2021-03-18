@@ -20,7 +20,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-        <div id="app">
+        <div id="app" v-cloak>
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -33,13 +33,20 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('guest.products.index') }}">Products</a>
-                            </li>
+
                         </ul>
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('guest.products.index') }}">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('cart.index') }}">
+                                    Cart
+                                    <span class="cart-counter">@{{ cartCount() > 0 ? cartCount() : '' }}</span>
+                                </a>
+                            </li>
                             @if (Auth::check())
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

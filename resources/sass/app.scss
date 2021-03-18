@@ -6,3 +6,41 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+[v-cloak] {
+    display: none;
+}
+
+.cart-counter {
+    padding: 0 5px;
+    border-radius: 50%;
+    background-color: #ff9900;
+}
+
+#guest-products-index {
+    img {
+        height: 240px;
+        object-fit: cover;
+    }
+}
+
+#cart {
+    img {
+        height: 100px;
+        width: 50%;
+        object-fit: cover;
+
+        @media screen and (min-width: 480px) {
+            height: 120px;
+            width: 25%;
+        }
+
+        @media screen and (min-width: 992px) {
+            height: 170px;
+        }
+    }
+
+    input[name="quantity"] {
+        width: 50px;
+    }
+}

@@ -27,3 +27,10 @@ Route::prefix('products')->name('guest.products.')->group(function() {
     Route::get('/{product}', 'ProductController@show')->name('show');
 });
 
+Route::prefix('cart')->name('cart.')->group(function() {
+    Route::get('/', 'CartController@index')->name('index');
+    Route::post('/', 'CartController@store')->name('store');
+    Route::delete('/', 'CartController@empty')->name('empty');
+    Route::delete('/{id}/delete', 'CartController@deleteProduct')->name('product.delete');
+});
+
