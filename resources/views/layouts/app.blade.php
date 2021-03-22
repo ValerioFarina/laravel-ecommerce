@@ -11,6 +11,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://js.stripe.com/v3/"></script>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -44,7 +45,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('cart.index') }}">
                                     Cart
-                                    <span class="cart-counter">@{{ cartCount() > 0 ? cartCount() : '' }}</span>
+                                    @if (Cart::count() > 0)
+                                        <span class="cart-counter">@{{ cartCount()}}</span>
+                                    @endif
                                 </a>
                             </li>
                             @if (Auth::check())
@@ -78,5 +81,7 @@
                 @yield('content')
             </main>
         </div>
+
+    @yield('extra-js')
     </body>
 </html>

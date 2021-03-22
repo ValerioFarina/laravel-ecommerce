@@ -10960,7 +10960,7 @@ a.text-dark:focus {
 
 #cart img {
   height: 100px;
-  width: 50%;
+  width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -10968,7 +10968,6 @@ a.text-dark:focus {
 @media screen and (min-width: 480px) {
   #cart img {
     height: 120px;
-    width: 25%;
   }
 }
 
@@ -10980,5 +10979,30 @@ a.text-dark:focus {
 
 #cart input[name=quantity] {
   width: 50px;
+}
+
+#checkout img {
+  width: 100%;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+#checkout .StripeElement {
+  background-color: white;
+  padding: 16px 16px;
+  border: 1px solid #ccc;
+}
+
+#checkout .StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+#checkout .StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+#checkout #card-errors {
+  color: #fa755a;
 }
 

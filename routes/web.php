@@ -34,3 +34,5 @@ Route::prefix('cart')->name('cart.')->group(function() {
     Route::delete('/{id}/delete', 'CartController@deleteProduct')->name('product.delete');
 });
 
+Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');

@@ -20,3 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('cart', 'Api\CartController@index');
 Route::put('cart/update/quantity', 'Api\CartController@updateQuantity');
+
+Route::get('getStripeKey', function() {
+   return response()->json([
+       'result' => config('services.stripe.key')
+   ]);
+});
