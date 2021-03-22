@@ -21,7 +21,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-        <div id="app" v-cloak>
+        <div id=@yield('root', 'root') v-cloak>
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -42,11 +42,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('guest.products.index') }}">Products</a>
                             </li>
-                            <li class="nav-item">
+                            <li id="cart-counter" class="nav-item">
                                 <a class="nav-link" href="{{ route('cart.index') }}">
                                     Cart
                                     @if (Cart::count() > 0)
-                                        <span class="cart-counter">@{{ cartCount()}}</span>
+                                        <span>@{{ cartCount()}}</span>
                                     @endif
                                 </a>
                             </li>

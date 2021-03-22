@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderPlaced;
 use Illuminate\Http\Request;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use App\Order;
 use App\Payment;
+use Illuminate\Support\Facades\Mail;
 
 
 class CheckoutController extends Controller
@@ -68,6 +70,8 @@ class CheckoutController extends Controller
             $payment->stripe_id = $charge['id'];
             $payment->accepted = 1;
             $payment->save();
+
+            Mail::send(new OrderPlaced($order));
 
             Cart::destroy();
 

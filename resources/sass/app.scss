@@ -11,10 +11,12 @@
     display: none;
 }
 
-.cart-counter {
-    padding: 0 5px;
-    border-radius: 50%;
-    background-color: #ff9900;
+#cart-counter {
+    span {
+        padding: 0 5px;
+        border-radius: 50%;
+        background-color: #ff9900;
+    }
 }
 
 #guest-products-index {

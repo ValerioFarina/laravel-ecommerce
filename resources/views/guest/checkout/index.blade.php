@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
+@section('root', 'checkout')
+
 @section('content')
-    <div id="checkout" class="container">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 @if (session()->has('error-payment-message'))
@@ -15,7 +17,7 @@
         <div class="row">
             <div class="col-12 col-lg-6">
                 <h3>Billing Details</h3>
-                <form id="payment-form" action="{{ route('checkout.store') }}" method="POST">
+                <form id="payment-form" action="{{ route('checkout.store') }}" method="POST" @submit.prevent="handleSubmission()">
                     @csrf
                     <div class="form-group">
                         <label>Email address</label>
@@ -27,24 +29,24 @@
                     </div>
                     <div class="form-group">
                         <label>Address</label>
-                        <input class="form-control" name="address" id="address">
+                        <input class="form-control" name="address" id="address" v-model="address">
                     </div>
                     <div class="form-group">
                         <label>City</label>
-                        <input class="form-control" name="city" id="city">
+                        <input class="form-control" name="city" id="city" v-model="city">
                     </div>
                     <div class="form-group">
                         <label>Province</label>
-                        <input class="form-control" name="province" id="province">
+                        <input class="form-control" name="province" id="province" v-model="province">
                     </div>
                     <div class="form-group">
                         <label>Postal code</label>
-                        <input class="form-control" name="postalcode" id="postalcode">
+                        <input class="form-control" name="postalcode" id="postalcode" v-model="postalcode">
                     </div>
                     <h3>Payment details</h3>
                     <div class="form-group">
                         <label for="name_on_card">Name on Card</label>
-                        <input type="text" class="form-control" id="name_on_card" name="name_on_card" value="">
+                        <input type="text" class="form-control" id="name_on_card" name="name_on_card" v-model="nameOnCard">
                     </div>
 
                     @if (session()->has('order_id'))
@@ -58,11 +60,13 @@
                             Credit or debit card
                         </label>
                         <div id="card-element">
-                            <!-- a Stripe Element will be inserted here. -->
+                            <!-- a Stripe Element will be inserted here -->
                         </div>
 
                         <!-- Used to display form errors -->
-                        <div id="card-errors" role="alert"></div>
+                        <div id="card-errors" role="alert">
+                            @{{ cardError }}
+                        </div>
                     </div>
                     <div class="spacer"></div>
 

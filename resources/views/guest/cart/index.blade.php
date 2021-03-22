@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
+@section('root', 'cart')
+
 @section('content')
-    <div id="cart" class="container">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 <h1 class="pb-4 mb-4 border-bottom border-dark">

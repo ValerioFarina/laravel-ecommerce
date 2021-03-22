@@ -53250,152 +53250,25 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+if (document.getElementById('root')) {
+  __webpack_require__(/*! ./partials/cart-counter */ "./resources/js/partials/cart-counter.js");
+}
 
+if (document.getElementById('product-details')) {
+  __webpack_require__(/*! ./pages/product-details */ "./resources/js/pages/product-details.js");
+}
 
+if (document.getElementById('cart')) {
+  __webpack_require__(/*! ./pages/cart */ "./resources/js/pages/cart.js");
+}
 
-if (document.getElementById('app')) {
-  var cart = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-    el: '#app',
-    data: {
-      cart: []
-    },
-    methods: {
-      cartCount: function cartCount() {
-        var count = 0;
-        this.cart.forEach(function (product) {
-          count += parseInt(product.qty);
-        });
-        return count;
-      },
-      cartSubtotal: function cartSubtotal() {
-        var subtotal = 0;
-        this.cart.forEach(function (product) {
-          subtotal += parseFloat(product.price) * parseInt(product.qty);
-        });
-        return subtotal;
-      },
-      updateQuantity: function updateQuantity(id) {
-        axios.put('/api/cart/update/quantity', {
-          quantity: this.cart[id].qty,
-          rowId: this.cart[id].rowId
-        }).then(function (response) {
-          console.log(response.data.result);
-        });
-      },
-      addToCart: function addToCart(id, availableQty) {
-        var _this = this;
-
-        var product = this.cart.find(function (item) {
-          return item.model.id == id;
-        });
-
-        if (product && product.qty < product.model.quantity) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
-            title: 'This product is already in the cart.',
-            text: "Do you want to add an item of this product to the cart?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No',
-            reverseButtons: true
-          }).then(function (result) {
-            if (result.isConfirmed) {
-              _this.$refs.addToCart.submit();
-            }
-          });
-        } else if (product) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('All the available items of this product are already in the cart.');
-        } else if (availableQty == 0) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('This product is not available.');
-        } else {
-          this.$refs.addToCart.submit();
-        }
-      }
-    },
-    mounted: function mounted() {
-      var _this2 = this;
-
-      axios.get('/api/cart').then(function (response) {
-        for (var rowId in response.data.result) {
-          _this2.cart.push(response.data.result[rowId]);
-        }
-      });
-
-      if (document.getElementById('payment-form')) {
-        // Create a Stripe client
-        axios.get('/api/getStripeKey').then(function (response) {
-          var stripe = Stripe(response.data.result); // Create an instance of Elements
-
-          var elements = stripe.elements(); // Create an instance of the card Element
-
-          var card = elements.create('card', {
-            hidePostalCode: true
-          }); // Add an instance of the card Element into the `card-element` <div>
-
-          card.mount('#card-element'); // Handle real-time validation errors from the card Element.
-
-          card.addEventListener('change', function (event) {
-            var displayError = document.getElementById('card-errors');
-
-            if (event.error) {
-              displayError.textContent = event.error.message;
-            } else {
-              displayError.textContent = '';
-            }
-          }); // Handle form submission
-
-          var form = document.getElementById('payment-form');
-          form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Disable the submit button to prevent repeated clicks
-
-            document.getElementById('complete-order').disabled = true;
-            var options = {
-              name: document.getElementById('name_on_card').value,
-              address_line1: document.getElementById('address').value,
-              address_city: document.getElementById('city').value,
-              address_state: document.getElementById('province').value,
-              address_zip: document.getElementById('postalcode').value
-            };
-            stripe.createToken(card, options).then(function (result) {
-              if (result.error) {
-                // Inform the user if there was an error
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message; // Enable the submit button
-
-                document.getElementById('complete-order').disabled = false;
-              } else {
-                // Send the token to your server
-                stripeTokenHandler(result.token);
-              }
-            });
-          });
-
-          function stripeTokenHandler(token) {
-            // Insert the token ID into the form so it gets submitted to the server
-            var form = document.getElementById('payment-form');
-            var hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'stripeToken');
-            hiddenInput.setAttribute('value', token.id);
-            form.appendChild(hiddenInput); // Submit the form
-
-            form.submit();
-          }
-        });
-      }
-    }
-  });
+if (document.getElementById('checkout')) {
+  __webpack_require__(/*! ./pages/checkout */ "./resources/js/pages/checkout.js");
 }
 
 /***/ }),
@@ -53442,6 +53315,270 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/pages/cart.js":
+/*!************************************!*\
+  !*** ./resources/js/pages/cart.js ***!
+  \************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var cart = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  el: '#cart',
+  data: {
+    cart: []
+  },
+  methods: {
+    cartCount: function cartCount() {
+      var count = 0;
+      this.cart.forEach(function (product) {
+        count += parseInt(product.qty);
+      });
+      return count;
+    },
+    cartSubtotal: function cartSubtotal() {
+      var subtotal = 0;
+      this.cart.forEach(function (product) {
+        subtotal += parseFloat(product.price) * parseInt(product.qty);
+      });
+      return subtotal;
+    },
+    updateQuantity: function updateQuantity(id) {
+      axios.put('/api/cart/update/quantity', {
+        quantity: this.cart[id].qty,
+        rowId: this.cart[id].rowId
+      }).then(function (response) {
+        console.log(response.data.result);
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/cart').then(function (response) {
+      for (var rowId in response.data.result) {
+        _this.cart.push(response.data.result[rowId]);
+      }
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/pages/checkout.js":
+/*!****************************************!*\
+  !*** ./resources/js/pages/checkout.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var checkout = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  el: '#checkout',
+  data: {
+    cart: [],
+    cardError: '',
+    nameOnCard: '',
+    address: '',
+    city: '',
+    province: '',
+    postalcode: ''
+  },
+  methods: {
+    cartCount: function cartCount() {
+      var count = 0;
+      this.cart.forEach(function (product) {
+        count += parseInt(product.qty);
+      });
+      return count;
+    },
+    stripeTokenHandler: function stripeTokenHandler(token) {
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('payment-form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput); // Submit the form
+
+      form.submit();
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/cart').then(function (response) {
+      for (var rowId in response.data.result) {
+        _this.cart.push(response.data.result[rowId]);
+      }
+    }); // Create a Stripe client
+
+    axios.get('/api/getStripeKey').then(function (response) {
+      var stripe = Stripe(response.data.result); // Create an instance of Elements
+
+      var elements = stripe.elements(); // Create an instance of the card Element
+
+      var card = elements.create('card', {
+        hidePostalCode: true
+      }); // Add an instance of the card Element into the `card-element` <div>
+
+      card.mount('#card-element'); // Handle real-time validation errors from the card Element.
+
+      var self = _this;
+      card.addEventListener('change', function (event) {
+        if (event.error) {
+          self.cardError = event.error.message;
+        } else {
+          self.cardError = '';
+        }
+      });
+
+      _this.handleSubmission = function () {
+        // Disable the submit button to prevent repeated clicks
+        document.getElementById('complete-order').disabled = true;
+        var options = {
+          name: _this.nameOnCard,
+          address_line1: _this.address,
+          address_city: _this.city,
+          address_state: _this.province,
+          address_zip: _this.postalcode
+        };
+        stripe.createToken(card, options).then(function (result) {
+          if (result.error) {
+            // Inform the user if there was an error
+            self.cardError = result.error.message; // Enable the submit button
+
+            document.getElementById('complete-order').disabled = false;
+          } else {
+            // Send the token to your server
+            self.stripeTokenHandler(result.token);
+          }
+        });
+      };
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/pages/product-details.js":
+/*!***********************************************!*\
+  !*** ./resources/js/pages/product-details.js ***!
+  \***********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var productDetails = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  el: '#product-details',
+  data: {
+    cart: []
+  },
+  methods: {
+    cartCount: function cartCount() {
+      var count = 0;
+      this.cart.forEach(function (product) {
+        count += parseInt(product.qty);
+      });
+      return count;
+    },
+    addToCart: function addToCart(id, availableQty) {
+      var _this = this;
+
+      var product = this.cart.find(function (item) {
+        return item.model.id == id;
+      });
+
+      if (product && product.qty < product.model.quantity) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+          title: 'This product is already in the cart.',
+          text: "Do you want to add an item of this product to the cart?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No',
+          reverseButtons: true
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            _this.$refs.addToCart.submit();
+          }
+        });
+      } else if (product) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('All the available items of this product are already in the cart.');
+      } else if (availableQty == 0) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('This product is not available.');
+      } else {
+        this.$refs.addToCart.submit();
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    axios.get('/api/cart').then(function (response) {
+      for (var rowId in response.data.result) {
+        _this2.cart.push(response.data.result[rowId]);
+      }
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/partials/cart-counter.js":
+/*!***********************************************!*\
+  !*** ./resources/js/partials/cart-counter.js ***!
+  \***********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var cartCounter = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  el: '#root',
+  data: {
+    cart: []
+  },
+  methods: {
+    cartCount: function cartCount() {
+      var count = 0;
+      this.cart.forEach(function (product) {
+        count += parseInt(product.qty);
+      });
+      return count;
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/cart').then(function (response) {
+      for (var rowId in response.data.result) {
+        _this.cart.push(response.data.result[rowId]);
+      }
+    });
+  }
+});
 
 /***/ }),
 
