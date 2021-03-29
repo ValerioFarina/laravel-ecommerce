@@ -53255,7 +53255,7 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-if (document.getElementById('root')) {
+if (document.getElementById('cart-counter') && !document.getElementById('cart')) {
   __webpack_require__(/*! ./partials/cart-counter */ "./resources/js/partials/cart-counter.js");
 }
 
@@ -53269,6 +53269,10 @@ if (document.getElementById('cart')) {
 
 if (document.getElementById('checkout')) {
   __webpack_require__(/*! ./pages/checkout */ "./resources/js/pages/checkout.js");
+}
+
+if (document.getElementById('search-product')) {
+  __webpack_require__(/*! ./pages/search-product */ "./resources/js/pages/search-product.js");
 }
 
 /***/ }),
@@ -53387,7 +53391,6 @@ __webpack_require__.r(__webpack_exports__);
 var checkout = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#checkout',
   data: {
-    cart: [],
     cardError: '',
     nameOnCard: '',
     address: '',
@@ -53396,13 +53399,6 @@ var checkout = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     postalcode: ''
   },
   methods: {
-    cartCount: function cartCount() {
-      var count = 0;
-      this.cart.forEach(function (product) {
-        count += parseInt(product.qty);
-      });
-      return count;
-    },
     stripeTokenHandler: function stripeTokenHandler(token) {
       // Insert the token ID into the form so it gets submitted to the server
       var form = document.getElementById('payment-form');
@@ -53418,12 +53414,7 @@ var checkout = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('/api/cart').then(function (response) {
-      for (var rowId in response.data.result) {
-        _this.cart.push(response.data.result[rowId]);
-      }
-    }); // Create a Stripe client
-
+    // Create a Stripe client
     axios.get('/api/getStripeKey').then(function (response) {
       var stripe = Stripe(response.data.result); // Create an instance of Elements
 
@@ -53493,13 +53484,6 @@ var productDetails = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     cart: []
   },
   methods: {
-    cartCount: function cartCount() {
-      var count = 0;
-      this.cart.forEach(function (product) {
-        count += parseInt(product.qty);
-      });
-      return count;
-    },
     addToCart: function addToCart(id, availableQty) {
       var _this = this;
 
@@ -53543,6 +53527,56 @@ var productDetails = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 
 /***/ }),
 
+/***/ "./resources/js/pages/search-product.js":
+/*!**********************************************!*\
+  !*** ./resources/js/pages/search-product.js ***!
+  \**********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var searchProduct = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  el: '#search-product',
+  data: {
+    searched: searched,
+    category: '',
+    maxPrice: 99999.99,
+    showFilters: false,
+    order: null,
+    sortedProducts: []
+  },
+  methods: {
+    checkCategory: function checkCategory(categoryId) {
+      return this.category == '' || categoryId == this.category;
+    },
+    checkPrice: function checkPrice(price) {
+      return parseFloat(price) <= this.maxPrice;
+    },
+    orderByPrice: function orderByPrice() {
+      var _this = this;
+
+      axios.get('/api/orderByPrice', {
+        params: {
+          searched: this.searched,
+          order: this.order
+        }
+      }).then(function (response) {
+        _this.sortedProducts = response.data.results;
+      });
+    },
+    resetFilters: function resetFilters() {
+      this.category = '';
+      this.maxPrice = 99999.99;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/partials/cart-counter.js":
 /*!***********************************************!*\
   !*** ./resources/js/partials/cart-counter.js ***!
@@ -53556,7 +53590,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 
 var cartCounter = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#root',
+  el: '#cart-counter',
   data: {
     cart: []
   },

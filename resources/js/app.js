@@ -1,6 +1,6 @@
 require('./bootstrap');
 
-if (document.getElementById('root')) {
+if (document.getElementById('cart-counter') && !document.getElementById('cart')) {
     require('./partials/cart-counter');
 }
 
@@ -14,4 +14,8 @@ if (document.getElementById('cart')) {
 
 if (document.getElementById('checkout')) {
     require('./pages/checkout');
+}
+
+if (document.getElementById('search-product')) {
+    require('./pages/search-product');
 }

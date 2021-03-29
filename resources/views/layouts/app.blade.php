@@ -18,10 +18,11 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-        <div id=@yield('root', 'root') v-cloak>
+        <div id=@yield('root', 'root')>
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -76,8 +77,22 @@
                     </div>
                 </div>
             </nav>
+            @if (Request::route()->getName() != 'login')
+                <nav id="nav-search" class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <form action="{{ route('searchProduct') }}" method="GET">
+                                    <input name="searched" type="text" placeholder="search for product ...">
+                                    <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            @endif
 
-            <main class="py-4">
+            <main>
                 @yield('content')
             </main>
         </div>

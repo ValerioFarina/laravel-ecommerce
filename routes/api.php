@@ -26,3 +26,5 @@ Route::get('getStripeKey', function() {
        'result' => config('services.stripe.key')
    ]);
 });
+
+Route::get('orderByPrice', 'Api\ProductController@orderByPrice');

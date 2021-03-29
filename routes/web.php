@@ -27,6 +27,8 @@ Route::prefix('products')->name('guest.products.')->group(function() {
     Route::get('/{product}', 'ProductController@show')->name('show');
 });
 
+Route::get('/searchProduct', 'ProductController@searchProduct')->name('searchProduct');
+
 Route::prefix('cart')->name('cart.')->group(function() {
     Route::get('/', 'CartController@index')->name('index');
     Route::post('/', 'CartController@store')->name('store');
@@ -36,3 +38,5 @@ Route::prefix('cart')->name('cart.')->group(function() {
 
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
+
+

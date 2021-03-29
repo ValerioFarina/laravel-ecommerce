@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
-@section('root', 'product-details')
-
 @section('content')
-    <div class="container">
+    <div id="product-details" class="container">
         <div class="row">
             <div class="col-12">
                 <h1>{{ $product->name }}</h1>

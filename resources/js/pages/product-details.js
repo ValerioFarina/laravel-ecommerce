@@ -7,13 +7,6 @@ var productDetails = new Vue({
         cart: []
     },
     methods: {
-        cartCount() {
-            var count = 0;
-            this.cart.forEach((product) => {
-                count += parseInt(product.qty);
-            });
-            return count;
-        },
         addToCart(id, availableQty) {
             var product = this.cart.find(item => item.model.id == id);
 

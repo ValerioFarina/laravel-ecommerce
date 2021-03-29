@@ -3,7 +3,6 @@ import Vue from 'vue';
 var checkout = new Vue({
     el: '#checkout',
     data: {
-        cart: [],
         cardError: '',
         nameOnCard: '',
         address: '',
@@ -12,13 +11,6 @@ var checkout = new Vue({
         postalcode: ''
     },
     methods: {
-        cartCount() {
-            var count = 0;
-            this.cart.forEach((product) => {
-                count += parseInt(product.qty);
-            });
-            return count;
-        },
         stripeTokenHandler(token) {
             // Insert the token ID into the form so it gets submitted to the server
             var form = document.getElementById('payment-form');
@@ -32,12 +24,6 @@ var checkout = new Vue({
         }
     },
     mounted() {
-        axios.get('/api/cart').then((response) => {
-            for (let rowId in response.data.result) {
-                this.cart.push(response.data.result[rowId]);
-            }
-        });
-
         // Create a Stripe client
         axios.get('/api/getStripeKey').then((response) => {
             var stripe = Stripe(response.data.result);

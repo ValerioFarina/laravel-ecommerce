@@ -76,3 +76,17 @@
         color: #fa755a;
     }
 }
+
+#filters-menu {
+    position: relative;
+    background-color: lightgrey;
+    padding: 25px;
+
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: red;
+        cursor: pointer;
+    }
+}

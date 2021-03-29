@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 var cartCounter = new Vue({
-    el: '#root',
+    el: '#cart-counter',
     data: {
         cart: []
     },

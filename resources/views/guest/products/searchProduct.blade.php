@@ -2,7 +2,7 @@
 
 @section('extra-js')
     <script>
-        var searched = "";
+        var searched = "{{ $searched }}";
     </script>
 @endsection
 
@@ -10,11 +10,17 @@
     <div id="search-product" class="container">
         <div class="row">
             <div class="col-12">
-                @if (session()->has('success-payment-message'))
-                    <div class="alert alert-success">
-                        {{ session()->get('success-payment-message') }}
-                    </div>
-                @endif
+                <h1>
+                    @if ($products->count() == 1)
+                        {{ $products->count() }} result found for "{{ $searched }}"
+                    @else
+                        {{ $products->count() }} results found for "{{ $searched }}"
+                    @endif
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
                 <a href="#" @click.prevent="showFilters = true" v-if="!showFilters">Show filters</a>
                 <div id="filters-menu" v-if="showFilters" class="mb-4">
                     <select name="category" v-model="category">
@@ -75,3 +81,4 @@
         </div>
     </div>
 @endsection
+
