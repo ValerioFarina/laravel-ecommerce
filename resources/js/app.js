@@ -19,3 +19,7 @@ if (document.getElementById('checkout')) {
 if (document.getElementById('search-product')) {
     require('./pages/search-product');
 }
+
+if (document.getElementById('statistics')) {
+    require('./pages/statistics');
+}

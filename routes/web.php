@@ -20,6 +20,7 @@ Auth::routes(['register' => false]);
 Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('products', 'ProductController');
+    Route::get('statistics', 'StatisticsController@index')->name('statistics');
 });
 
 Route::prefix('products')->name('guest.products.')->group(function() {

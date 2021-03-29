@@ -28,3 +28,6 @@ Route::get('getStripeKey', function() {
 });
 
 Route::get('orderByPrice', 'Api\ProductController@orderByPrice');
+
+Route::get('getNumOfItems', 'Api\StatisticsController@getNumOfItems');
+Route::get('getRevenues', 'Api\StatisticsController@getRevenues');
