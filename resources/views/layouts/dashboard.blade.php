@@ -87,7 +87,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.statistics') }}">
+                                    <a class="nav-link" href="{{ route('admin.statistics.index') }}">
                                         <i class="fas fa-chart-bar fa-2x"></i>
                                         Statistics
                                     </a>
@@ -102,5 +102,7 @@
                 </div>
             </div>
         </div>
+    
+    @yield('extra-js')
     </body>
 </html>

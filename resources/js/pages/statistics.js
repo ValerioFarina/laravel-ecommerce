@@ -6,7 +6,8 @@ var chart = new Vue({
     data: {
         year: new Date().getFullYear(),
         dataset: 'items',
-        myChart: undefined
+        myChart: undefined,
+        productId
     },
     methods: {
         getData() {
@@ -28,7 +29,8 @@ var chart = new Vue({
             }
             axios.get('/api/' + url, {
                 params: {
-                    year: this.year
+                    year: this.year,
+                    productId: this.productId
                 }
             }).then((response) => {
                 var results = response.data.results;

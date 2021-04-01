@@ -23,7 +23,7 @@ class CheckoutController extends Controller
             $order = new Order();
             $order->fill($request->all());
             $order->quantity = Cart::count();
-            $order->amount = Cart::subtotal();
+            $order->amount = str_replace(',', '', Cart::subtotal());
             $order->save();
 
             $products = Cart::content()->mapWithKeys(function($item) {

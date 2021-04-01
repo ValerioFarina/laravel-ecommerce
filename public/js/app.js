@@ -91028,7 +91028,7 @@ if (document.getElementById('search-product')) {
   __webpack_require__(/*! ./pages/search-product */ "./resources/js/pages/search-product.js");
 }
 
-if (document.getElementById('myChart')) {
+if (document.getElementById('statistics')) {
   __webpack_require__(/*! ./pages/statistics */ "./resources/js/pages/statistics.js");
 }
 
@@ -91354,7 +91354,8 @@ var chart = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   data: {
     year: new Date().getFullYear(),
     dataset: 'items',
-    myChart: undefined
+    myChart: undefined,
+    productId: productId
   },
   methods: {
     getData: function getData() {
@@ -91380,7 +91381,8 @@ var chart = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 
       axios.get('/api/' + url, {
         params: {
-          year: this.year
+          year: this.year,
+          productId: this.productId
         }
       }).then(function (response) {
         var results = response.data.results;

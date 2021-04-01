@@ -95,7 +95,7 @@
                 @endforeach
                 <div class="row text-right">
                     <div class="col-12">
-                        <p>Total: € {{ Cart::subTotal() }}</p>
+                        <p>Total: € {{ str_replace(',', '', Cart::subtotal()) }}</p>
                     </div>
                 </div>
             </div>
