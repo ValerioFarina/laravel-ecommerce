@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Order;
 use App\Product;
@@ -20,7 +21,8 @@ class StatisticsController extends Controller
         }
         return view('admin.statistics.index', [
             'years' => $years,
-            'products' => Product::all()
+            'products' => Product::all(),
+            'categories' => Category::all()
         ]);
     }
 

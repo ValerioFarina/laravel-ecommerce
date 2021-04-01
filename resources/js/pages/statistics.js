@@ -7,7 +7,9 @@ var chart = new Vue({
         year: new Date().getFullYear(),
         dataset: 'items',
         myChart: undefined,
-        productId
+        productId,
+        productFilter: 'all',
+        productType: undefined
     },
     methods: {
         getData() {
@@ -30,7 +32,8 @@ var chart = new Vue({
             axios.get('/api/' + url, {
                 params: {
                     year: this.year,
-                    productId: this.productId
+                    productId: this.productId,
+                    productType: this.productType
                 }
             }).then((response) => {
                 var results = response.data.results;
@@ -108,6 +111,15 @@ var chart = new Vue({
                     }
                 });
             });
+        },
+        changeProductFilter() {
+            if (this.productFilter == 'all' && (this.productType || this.productId)) {
+                this.productType = undefined;
+                this.productId = undefined;
+                this.getData();
+            }
+            this.productType = undefined;
+            this.productId = undefined;
         }
     },
     mounted() {

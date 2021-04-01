@@ -91355,7 +91355,9 @@ var chart = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     year: new Date().getFullYear(),
     dataset: 'items',
     myChart: undefined,
-    productId: productId
+    productId: productId,
+    productFilter: 'all',
+    productType: undefined
   },
   methods: {
     getData: function getData() {
@@ -91382,7 +91384,8 @@ var chart = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
       axios.get('/api/' + url, {
         params: {
           year: this.year,
-          productId: this.productId
+          productId: this.productId,
+          productType: this.productType
         }
       }).then(function (response) {
         var results = response.data.results;
@@ -91424,6 +91427,16 @@ var chart = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
           }
         });
       });
+    },
+    changeProductFilter: function changeProductFilter() {
+      if (this.productFilter == 'all' && (this.productType || this.productId)) {
+        this.productType = undefined;
+        this.productId = undefined;
+        this.getData();
+      }
+
+      this.productType = undefined;
+      this.productId = undefined;
     }
   },
   mounted: function mounted() {
